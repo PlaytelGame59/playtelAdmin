@@ -1,0 +1,96 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+* {
+    // font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+}
+
+:root {
+    --primary: #ecf009;
+    --secondary: #b43a02;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+
+.logo {
+    height: 50px;    
+}
+
+input {
+    border-radius: 8px;
+    border: 2px solid #dddfe2;
+    outline: none;
+    color: #1d2129;
+    padding: 0.5rem 0.75rem;
+    width: 95%;
+    font-size: 1rem;
+    margin-top: 13px;
+    background-color: #f48805;
+}
+
+.subDiv {
+    gap: 20px;
+}
+
+// .card {
+//     width: 230;
+//     text-align: center;
+//     color: white;
+// }
+
+.card:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    border: none;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(252, 250, 250, 0.5), rgba(230, 220, 220, 0));
+    // background: radial-gradient(ellipse, rgba(252, 250, 250, 0.5), rgba(230, 220, 220, 0));
+
+    filter: blur(1px); 
+    z-index: 1;
+}
+
+.totalPlayers {
+    // background-color: rgb(31, 93, 226);
+    gap: 5%;
+    
+}
+
+.recent-players {
+    margin-top: 5%;
+    width: 100%; 
+    height: 30rem;
+    background: #a8d9f7;
+}
+
+// side bar css
+.sidebar {
+    height: 66px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.banned-button {
+    background-color: red !important;
+    color: white;
+    // Add other styles as needed
+}
