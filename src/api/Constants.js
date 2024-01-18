@@ -1,6 +1,6 @@
 export const base_url = "http://localhost:4000"
 
-// export const base_url =`http://162.240.146.1:2000/`
+// export const base_url =`http://43.204.211.129:2000`
 
 // admin login api
 export const admin_login = "/admin/login" // /admin/login
@@ -39,7 +39,7 @@ export const get_approve_withdraw = "/admin/approve-withdraw"
 export const get_reject_withdraw = "/admin/reject-withdraw" // /reject-withdraw
 
 // add_desclamer (privacy policy)
-export const add_desclamer = "/admin/add-disclamer" // add_desclamer url
+export const add_desclamer = "/admin/add-disclamer" // /add-disclamer
 
 // Notification api
 export const add_notification = "/admin/add-notification"

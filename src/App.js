@@ -1,4 +1,5 @@
 import './App.css';
+import React from "react"
 import AllRoutes from './routes/AllRoutes';
 import "../src/assets/css/style.scss"
 import { ConfigProvider } from 'antd';
@@ -18,7 +19,6 @@ function App() {
       >
         <AllRoutes />
       </ConfigProvider>
-      {/* <AllRoutes /> */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Header from "../components/Header"
 import { Breadcrumb, Button, Col, Form, Input, Layout, Row } from "antd"
 import Sidebar from "../components/Sidebar"
@@ -32,7 +32,9 @@ const PrivacyPolicy = () => {
 
     const onFinish = async () => {
         try {
-            const response = await addDesclamerData()
+            console.log("formData", formData)
+            const response = await addDesclamerData(formData)
+            console.log("response", response)
             if(response.data.status === "success") {
                 Swal.fire({
                     icon: "success",
@@ -50,74 +52,83 @@ const PrivacyPolicy = () => {
         } catch (error) {
             console.log(error)
         }
-    //   navigate('/players/list')
+        // navigate('/players/list')
     }
-    
-  return (  
-    <>
-        <Layout style={{ minHeight: "100vh" }}>
-            <Header 
-                toggleSidebar={toggleSidebar} 
-                isAuthenticated={isAuthenticated}
-            />
-            <Layout>
-                    {isSidebarVisible && <Sidebar />}
-                    <Layout
-                        style={{ 
-                            padding: "24px", 
-                            minHeight: "280px", 
-                            cursor: "pointer"
-                        }} 
-                    >
-                    <Row>
-                        <Col
-                            xs={24} 
-                            sm={24}
-                            md={24} 
-                            lg={24} 
-                            xl={24} 
-                        >
-                            <Row>
-                                <Breadcrumb
-                                    items={[
-                                        {
-                                            title: <h3>Privacy Policy</h3>,
-                                        },
-                                        {
-                                            title: <a href="/">Home</a>,
-                                        },
-                                        {
-                                            title: <a >Privacy Policy</a>,
-                                        },
-                                    ]}
-                                />
-                            </Row>
-                            <hr />
 
-                            <Form layout="vertical" onFinish={onFinish}>
-                        
-                                <Form.Item label='Disclamer' name='addDisclamer'>
-                                    <Input.TextArea
-                                        name="addDisclamer"
-                                        placeholder="Write Disclamer Here"
-                                        value={formData?.addDisclamer} 
-                                        onChange={handleChange}
-                                        rows={4} // You can adjust the number of rows as needed
+    const handleReset = () => {
+        // Reset the form data when the reset button is clicked
+        console.log("reset")
+        setFormData({
+            addDisclamer: '',
+        });
+    };
+
+    
+    return (  
+        <>
+            <Layout style={{ minHeight: "100vh" }}>
+                <Header 
+                    toggleSidebar={toggleSidebar} 
+                    isAuthenticated={isAuthenticated}
+                />
+                <Layout>
+                        {isSidebarVisible && <Sidebar />}
+                        <Layout
+                            style={{ 
+                                padding: "24px", 
+                                minHeight: "280px", 
+                                cursor: "pointer"
+                            }} 
+                        >
+                        <Row>
+                            <Col
+                                xs={24} 
+                                sm={24}
+                                md={24} 
+                                lg={24} 
+                                xl={24} 
+                            >
+                                <Row>
+                                    <Breadcrumb
+                                        items={[
+                                            {
+                                                title: <h3>Privacy Policy</h3>,
+                                            },
+                                            {
+                                                title: <a href="/">Home</a>,
+                                            },
+                                            {
+                                                title: <a >Privacy Policy</a>,
+                                            },
+                                        ]}
                                     />
-                                </Form.Item>
+                                </Row>
+                                <hr />
+
+                                <Form layout="vertical" onFinish={onFinish}>
                             
-                                <Form.Item>
-                                    <Button htmlType="submit" type="primary" style={{ marginRight: "1%" }}>Update</Button>
-                                    <Button htmlType="submit" type="primary">Reset</Button>
-                                </Form.Item>
-                            </Form>
-                        </Col>
-                    </Row>
+                                    <Form.Item label='Disclamer' name='addDisclamer'>
+                                        <Input.TextArea
+                                            name="addDisclamer"
+                                            placeholder="Write Disclamer Here"
+                                            value={formData?.addDisclamer} 
+                                            onChange={handleChange}
+                                            rows={4} // You can adjust the number of rows as needed
+                                        />
+                                    </Form.Item>
+                                
+                                    <Form.Item>
+                                        <Button htmlType="submit" type="primary" style={{ marginRight: "1%" }}>Update</Button>
+                                        <Button htmlType="button" type="primary" onClick={handleReset}>Reset</Button>
+                                    </Form.Item>
+                                </Form>
+                            </Col>
+                        </Row>
+                    </Layout>
                 </Layout>
             </Layout>
-        </Layout>
-    </>
-  )
+        </>
+    )
 }
 
 export default PrivacyPolicy

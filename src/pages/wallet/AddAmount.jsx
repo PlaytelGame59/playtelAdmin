@@ -94,6 +94,7 @@ const AddAmount = () => {
             }));
     
             console.log("list_id", listId);
+            console.log("formData", formData);
             
             const responses = await Promise.all(
                 formDataWithWalletIds.map((data) => addWalletAmountData(data))
