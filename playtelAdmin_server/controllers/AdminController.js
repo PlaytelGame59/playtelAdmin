@@ -11,6 +11,7 @@ const Withdraw = require('../models/Withdraw');
 const Transaction  = require('../models/Transaction')
 const User = require('../models/User');
 const Wallet = require('../models/Wallet');
+const cron = require('node-cron');
 
 // Admin module <----------------------->
 exports.signUp = async function (req, res) {
@@ -80,8 +81,76 @@ exports.resetPassword = async function (req, res) {
     }
 };
 
+// exports.addTorunment = async function (req, res) {
+//     try {
+//         const {
+//             tournamentName,
+//             betAmount,
+//             noPlayers,
+//             winningAmount,
+//             tournamentInterval,
+//             tournamentType,
+//             tournamentStatus
+//         } = req.body;
 
-// Tournament module <----------------------->
+//         // Set winnerCount based on noPlayers
+//         let winnerCount;
+//         if (noPlayers === 2 || noPlayers === 3) {
+//             winnerCount = 1;
+//         } else if (noPlayers === 4) {
+//             winnerCount = 3;
+//         } else {
+//             // Handle other values if needed
+//             winnerCount = 0; // Default value
+//         }
+
+//         // Create a new instance of the TournamentModel
+//         const newTournament = new Tournament({
+//             tournamentName,
+//             betAmount,
+//             noPlayers,
+//             winningAmount,
+//             winnerCount,
+//             tournamentInterval,
+//             tournamentType,
+//             tournamentStatus
+//         });
+
+//         // Save the new tournament to the database
+//         const savedTournament = await newTournament.save();
+
+//         // Set up a cron job for the tournament timer
+//         cron.schedule(`*/${tournamentInterval} * * * *`, () => {
+//             // Timer logic: countdown from tournamentInterval to 0 and restart
+//             let currentCountdown = tournamentInterval * 60; // Convert minutes to seconds
+//             const countdownInterval = setInterval(() => {
+//                 console.log(`Countdown: ${currentCountdown} seconds`);
+
+//                 if (currentCountdown <= 0) {
+//                     // Additional logic when the timer finishes (e.g., trigger an event)
+//                     console.log('Timer finished!');
+
+//                     // Restart the countdown
+//                     currentCountdown = tournamentInterval * 60;
+//                 } else {
+//                     currentCountdown--;
+//                 }
+//             }, 1000);
+
+//             // Stop the interval after the specified tournamentInterval
+//             setTimeout(() => {
+//                 clearInterval(countdownInterval);
+//             }, tournamentInterval * 60 * 1000);
+//         });
+
+//         // Respond with the saved tournament data
+//         res.status(201).json({ msg: "add tournament data successfully", savedTournament, status: "success" });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal Server Error' });
+//     }
+// };
+
 exports.addTorunment = async function (req, res) {
     try {
         const { 
@@ -139,6 +208,7 @@ exports.addTorunment = async function (req, res) {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+
 exports.getTorunment = async function (req, res) {
     try {
         // Fetch all tournament from the database
@@ -234,19 +304,16 @@ exports.deleteTorunment = async function (req, res) {
 
 exports.addDisclamer = async function (req, res) {
     try {
-        const { 
-            addDisclamer
-        } = req.body;
+        const { addDisclamer } = req.body;
 
         // Create a new instance of the Disclamer
         const newDisclamer = new Disclamer({
-            addDisclamer
-
+            addDisclamer 
         });
 
         // Save the new disclamer to the database
         const savedDisclamer = await newDisclamer.save();
-
+        console.log("savedDisclamer", savedDisclamer)
         // Respond with the saved disclamer data
         res.status(201).json({msg: "add disclamer data successfuly", savedDisclamer, status: "success"});
     } catch (error) {
@@ -528,8 +595,76 @@ exports.addAmount = async function (req, res) {
     }
 };
 
-
 // withdraw module <----------------------->
+
+exports.addWithdrawRequestList = async function (req, res) {
+    try {
+        const { playerId, amount } = req.params;
+
+        // Validate and process the playerId and amount as needed
+
+        // Example: Find the player by playerId to associate with the withdrawal request
+        const player = await Player.findById(playerId);
+        if (!player) {
+            return res.status(404).json({
+                success: false,
+                message: 'Player not found.',
+            });
+        }
+
+        // Create a new withdrawal request
+        const withdrawalRequest = new Withdraw({
+            player_id: playerId,
+            amount: amount,
+            status: 'pending',
+            // Add other fields as needed
+        });
+
+        // Save the withdrawal request to the database
+        await withdrawalRequest.save();
+
+        // Respond with success message
+        res.status(201).json({
+            success: true,
+            message: 'Withdrawal request added successfully.',
+            withdrawalRequest: withdrawalRequest,
+        });
+    } catch (error) {
+        console.error('Error adding withdrawal request:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to add withdrawal request.',
+            error: error.message,
+        });
+    }
+};
+// const WithdrawalRequest = require('../models/WithdrawalRequest');
+// const Player = require('../models/Player');
+
+exports.getWithdrawRequestList = async function (req, res) {
+    try {
+        // Fetch withdrawal requests and populate player details
+        const withdrawalRequests = await Withdraw.find()
+            .populate('player_id', 'playerId playerName email') // Add fields you want to retrieve for the player
+            .exec();
+
+        // Your logic to filter, process, or modify the withdrawal requests goes here
+
+        // Respond with the list of withdrawal requests and player details
+        res.status(200).json({
+            success: true,
+            withdrawalRequests,
+        });
+    } catch (error) {
+        console.error('Error fetching and processing withdrawal requests:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to fetch withdrawal requests.',
+            error: error.message,
+        });
+    }
+};
+
 exports.getapproveWithdraw = async function (req, res) {
     try {
         const approveWithdraw = await Player.find({ isApprove: true });

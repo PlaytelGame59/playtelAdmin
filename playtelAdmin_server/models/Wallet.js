@@ -7,10 +7,6 @@ const WalletSchema = mongoose.Schema({
     // walletAmount: { type: String, default: 0 },
     // bonusWalletAmount: { type: String, default: 0 }
 
-    transactionType: { type: String },
-    walletType: { type: String },
-    addAmount: { type: String },
-    notes: { type: String }
 
 })    
 

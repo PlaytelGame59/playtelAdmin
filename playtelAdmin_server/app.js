@@ -68,45 +68,62 @@ app.use('/payment', paymentIntegration);
     // Test-   https://pg.paytelpg.com/PaymentGateway/RequestPG
     // Production-   https://pg.paytelpg.com/PaymentGateway/RequestPG
 
-    const MerchantID = 900000000000071;
+    const Mid = 900000000000071;
     const PAYTEL_API_BASE_URL = 'https://pg.paytelpg.com/PaymentGateway'; // https://pg.paytelpg.com/PaymentGateway/RequestPG  https://api.paytel.in
     const PAYTEL_API_KEY = 'scrrXzsvOIuWVLF6GNQBJPa3HFOSPAtiE2L'; 
     const PAYTEL_API_SECRET = 'salftNTkLKNbas2v1tiieq4GNMEFiOziV';
 
     app.post('/generate-paymentlink', async (req, res) => {
-        try {
-            const paymentDetails = req.body
-            const response = await axios.post(
-                `${PAYTEL_API_BASE_URL}/RequestPG`, paymentDetails,
-              
-    
-                {
-                    headers: {
-                        'Authorization': `Bearer ${PAYTEL_API_KEY}:${PAYTEL_API_SECRET}:${MerchantID}`,
-                        'Content-Type': 'application/json',
-                    },
-                    // MerchantID: 900000000000071
-                }
-            );
-    
-            // Handle the response from Paytel
-            console.log('Payment created:', response.data);
-            res.json({ ...response.data, status: true });
+      try {
+          const {
+              // Mid, 
+              // SecretKey,
+              // SaltKey,
+              OrderNo, TxnRefNo, TotalAmount, CurrencyName, MeTransReqType,
+              MobileNo, Address, City, State, Pincode, RespCode, RespMessage,
+              PayAmount, TxnRespDate, CustomerName, TxnAmount
+          } = req.body;
+  
+          const payload = {
+              // Mid,
+              // SecretKey,
+              // SaltKey,
+              OrderNo, TxnRefNo, TotalAmount, CurrencyName, MeTransReqType,
+              MobileNo, Address, City, State, Pincode, RespCode, RespMessage,
+              PayAmount, TxnRespDate, CustomerName, TxnAmount
+          };
 
-        } catch (error) {
-            // console.error('Error creating payment:', error.message);
-            // console.error('Error response:', error.response.data);
-            // // res.status(500).json({ error: 'Internal Server Error' });
-            // res.status(error.response.status || 500).json({ error: 'Internal Server Error' });
-            
-            if(error.response) {
+          console.log('Request Payload:', payload);
+  
+          const response = await axios.post(
+              `${PAYTEL_API_BASE_URL}/RequestPG`,
+              payload,
+              {
+                headers: {
+                  'Authorization': `Bearer ${Mid}:${PAYTEL_API_KEY}:${PAYTEL_API_SECRET}`,
+                  // 'Authorization': `Bearer ${PAYTEL_API_KEY}:${PAYTEL_API_SECRET}`,
+                  // 'Authorization': `Bearer ${PAYTEL_API_KEY}`,
+                  // 'Authorization': `Bearer ${PAYTEL_API_SECRET}`,
+                  'Content-Type': 'application/json',
+                }
+              }
+          );
+  
+          // Handle the response from Paytel
+          console.log('Payment created:', response.data);
+          res.json({ ...response.data, status: true });
+  
+      } catch (error) {
+          if (error.response) {
               console.error('Error response:', error.response.data);
               console.error('Status Code:', error.response.status);
-            }
-      
+          }
+  
           res.status(error.response ? error.response.status : 500).json({ error: 'Internal Server Error' });
-        }
-    });
+      }
+  });
+
+
 
 io.use((socket, next) => {
   if(socket.handshake.query.token === "UNITY") {

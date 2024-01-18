@@ -32,8 +32,9 @@ router.get('/active', adminController.getactivePlayer)
 
 router.get('/banned-player', adminController.getBannedPlayers)
 
+router.post('/add-withdraw-request', adminController.addWithdrawRequestList)
+router.get('/get-withdrawList', adminController.getWithdrawRequestList)  // withdrawRequestList
 router.get('/approve-withdraw', adminController.getapproveWithdraw)  // getapproveWithdraw
-
 router.get('/reject-withdraw', adminController.getRejectedWithdraw) // getRejectedWithdraw
 
 router.get('/transaction-list', adminController.getTransaction);
