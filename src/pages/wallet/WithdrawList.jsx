@@ -17,7 +17,8 @@ import { getWithdrawListData } from "../../api/Api"
 const WithdrawList = () => {
     const { Option } = Select;
     const [withdrawListData, setWithdrawListData] = useState([])  
-    const [pageSize, setPageSize] = useState(10); 
+    const [pageSize, setPageSize] = useState(5); 
+    const [currentPage, setCurrentPage] = useState(1); 
     const [filteredData, setFilteredData] = useState([]);
     const [searchClicked, setSearchClicked] = useState(false);
     const [loading, setLoading] = useState(false)
@@ -39,27 +40,26 @@ const WithdrawList = () => {
         },
         {
             title: "Player ID",
-            dataIndex: "playerId",
-            key: "playerId" ,
-            // ...getColumnSearchProps("playerId")
+            dataIndex: "_id",
+            key: "_id" ,
+            // ...getColumnSearchProps("_id")
         },
         {
             title: "Player Name",
-            dataIndex: "playername",
-            key: "playername",
-            // ...getColumnSearchProps("playername")
+            dataIndex: "player_id.first_name",
+            key: "player_id.first_name",
+            render: (_, record) => record.player_id && record.player_id.first_name,
         },
         {
             title: "Wallet Amount",
-            dataIndex: "walletAmount",
-            key: "walletAmount",
-            // ...getColumnSearchProps("walletAmount")
+            dataIndex: "player_id.wallet_amount",
+            key: "player_id.wallet_amount",
+            render: (_, record) => record.player_id && record.player_id.wallet_amount,
         },
         {
             title: "Request Amount",
-            dataIndex: "requestAmount",
-            key: "requestAmount",
-            // ...getColumnSearchProps("requestAmount")
+            dataIndex: "amt_withdraw",
+            key: "amt_withdraw",
         },
         {
             title: "Type",
@@ -69,15 +69,13 @@ const WithdrawList = () => {
         },
         {
             title: "Acc No",
-            dataIndex: "accNo",
-            key: "accNo",
-            // ...getColumnSearchProps("accNo")
+            dataIndex: "bank_account",
+            key: "bank_account",
         },
         {
             title: "Ifsc",
-            dataIndex: "ifsc",
-            key: "ifsc",
-            // ...getColumnSearchProps("ifsc")
+            dataIndex: "bank_ifsc",
+            key: "bank_ifsc",
         },
         {
             title: "Paytm No",
@@ -216,6 +214,7 @@ const WithdrawList = () => {
             // Set loading to true when starting to fetch data
             setLoading(true); 
             const data = await getWithdrawListData();
+            console.log("getWithdrawListData", data)
             if(data) {
                 setWithdrawListData(data);
             }
@@ -227,9 +226,19 @@ const WithdrawList = () => {
         }
     }
 
+    const handleTableChange = (pagination) => {
+        setCurrentPage(pagination.current);
+    };
+
     useEffect(() => {
         mainWithdrawListData()
-    }, [])
+    }, [currentPage, pageSize])
+
+    useEffect(() => {
+        console.log("Withdraw List Data:", withdrawListData);
+    }, [withdrawListData]);
+
+    
 
     return (
         <>
@@ -299,9 +308,9 @@ const WithdrawList = () => {
                                             defaultValue={pageSize}
                                             onChange={handlePageSizeChange}
                                         >
+                                            <Option value={5}>5</Option>
                                             <Option value={10}>10</Option>
-                                            <Option value={20}>20</Option>
-                                            <Option value={30}>30</Option>
+                                            <Option value={15}>15</Option>
                                         </Select>
                                     </Col>
                                     <Col
@@ -339,10 +348,13 @@ const WithdrawList = () => {
                                         dataSource={searchClicked ? filteredData : withdrawListData} 
                                         pagination={{
                                             showSizeChanger: true,
-                                            pageSizeOptions: ['10', '20', '30'],
-                                            defaultPageSize: 10,
+                                            // pageSizeOptions: ['10', '20', '30'],
+                                            pageSize: pageSize,
+                                            defaultPageSize: 5,
                                             showTotal: (total, range) => `Showing ${range[0]} to ${range[1]} of ${total} entries`,
+                                            current: currentPage,
                                         }}
+                                        onChange={handleTableChange}
                                     />
                                 </Spin>
                             </Col>
@@ -355,4 +367,3 @@ const WithdrawList = () => {
 }
 
 export default WithdrawList
-

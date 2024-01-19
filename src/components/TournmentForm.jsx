@@ -279,4 +279,3 @@ const TournamentForm = ({ showTournamentForm, setShowTournmentForm, getTournamen
 }
 
 export default TournamentForm;
-

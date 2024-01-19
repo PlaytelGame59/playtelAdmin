@@ -1,5 +1,5 @@
 import axios from "axios";
-import { add_desclamer, add_notice, add_notification, add_player_notification, add_tournament, add_wallet, base_url, delete_player, get_notice, get_notificationList, get_player, get_player_active, get_player_leaderboard, get_rechargetransaction, get_tournament, get_transaction, get_withdrawList, update_player, get_banned_player, get_approve_withdraw, get_reject_withdraw } from "./Constants";
+import { add_desclamer, add_notice, add_notification, add_player_notification, add_tournament, add_wallet, base_url, delete_player, get_notice, get_notificationList, get_player, get_player_active, get_player_leaderboard, get_rechargetransaction, get_tournament, get_transaction, get_withdrawList, update_player, get_banned_player, get_approve_withdraw, get_reject_withdraw, get_player_report } from "./Constants";
 import { message } from "antd";
 
 
@@ -31,6 +31,24 @@ export const getPlayerData = async (page, pageSize) => {
     return null;
   }
 };
+
+// /tournament/details
+export const getPlayerdetailReport = async (playerId, tournamentId, page, pageSize) => {
+  try {
+    const response = await axios.get(`${base_url}${get_player_report}`, {
+      params: {
+        player_id: playerId,
+        tournament_id: tournamentId,
+        page,
+        pageSize,
+      },
+    });
+    return response.data.player;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
 // update player
 export const updatePlayerData = async () => {
@@ -97,12 +115,9 @@ export const addTournamentData = async (tournamentData) => {
 // get tournament
 export const getTournamentData = async () => {
   try {
-    const response = await axios.get(`${base_url}${get_tournament}`, {
-      // headers: {
-      //     Authorization: `Bearer ${token}`,
-      // },
-    });
-    return response.data.tournament;
+    const response = await axios.get(`${base_url}${get_tournament}`, {});   
+    console.log('API Response:', response.data); 
+    return response.data.data;
   } catch (error) {
     console.log(error);
     return null;
@@ -165,13 +180,13 @@ export const getRechargeTransactionData = async () => {
 export const getWithdrawListData = async () => {
   try {
     const response = await axios.get(`${base_url}${get_withdrawList}`) 
-    // console.log("API Response:", response.data.transaction);
-    return response.data.transaction
+    return response.data.withdrawalRequests
   
   } catch (error) {
     console.log(error)
   }
 }
+
 
 // <----------------------> wallet api end <---------------------->
 
@@ -279,3 +294,15 @@ export const getrejectedWithdrawData = async () => {
     return null;
   }
 };
+
+
+// gameHistory
+export const gameHistory = async () => {
+  try {
+    const response = await axios.get(`${base_url}${get_player_report}`, {});
+    return response.data.player;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

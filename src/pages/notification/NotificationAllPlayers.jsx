@@ -256,10 +256,10 @@ const NotificationAllPlayers = () => {
                                                     {/* Options for individual players */}
                                                     {players.map((player) => (
                                                         <Option 
-                                                            key={player.name} 
-                                                            value={player.name}
+                                                            key={player.first_name} 
+                                                            value={player.first_name}
                                                         >
-                                                            {player.name}
+                                                            {player.first_name}
                                                         </Option>
                                                     ))}
                                                 </Select>

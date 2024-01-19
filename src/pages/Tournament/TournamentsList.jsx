@@ -36,31 +36,26 @@ const TournamentList = () => {
             dataIndex: "sNo",
             key: "sno",
             render: (text, record, index) => ((currentPage - 1) * pageSize) + index + 1,
-            // ...getColumnSearchProps("sno")
         },
         {
             title: "Tournament Name",
-            dataIndex: "tournamentName",
-            key: "tournamentName" ,
-            // ...getColumnSearchProps("tournamentName")
+            dataIndex: "tournament_name",
+            key: "tournament_name" ,
         },
         {
             title: "Bet Amount",
-            dataIndex: "betAmount",
-            key: "betAmount",
-            // ...getColumnSearchProps("betAmount")
+            dataIndex: "bet_amount",
+            key: "bet_amount",
         },
         {
             title: "No Players",
-            dataIndex: "noPlayers",
-            key: "noPlayers",
-            // ...getColumnSearchProps("noPlayers")
+            dataIndex: "no_players",
+            key: "no_players",
         },
         {
             title: "Tournaments Interval",
-            dataIndex: "tournamentInterval",
-            key: "tournamentInterval",
-            // ...getColumnSearchProps("tournamentInterval")
+            dataIndex: "tournament_interval",
+            key: "tournament_interval",
         },
         {
             title: 'Action',
@@ -80,7 +75,7 @@ const TournamentList = () => {
         },
     ]
     
-    console.log("tournamentData", tournamentData)
+    // console.log("tournamentData", tournamentData)
 
     const handleEdit = (record) => {
         setEditData(record);
@@ -143,6 +138,7 @@ const TournamentList = () => {
         try {
             setLoading(true)
             const data = await getTournamentData(currentPage, pageSize);
+            console.log("Tournament Data:", data);
             if(data) {
                 settournamentData(data);
                 setSearchClicked(false);
@@ -152,7 +148,6 @@ const TournamentList = () => {
         } finally {
             setLoading(false)
         }
-        
     }
 
     useEffect(() => {
@@ -297,4 +292,3 @@ const TournamentList = () => {
 }
 
 export default TournamentList
-

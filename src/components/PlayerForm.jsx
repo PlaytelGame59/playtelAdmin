@@ -9,13 +9,12 @@ import { update_player } from "../api/Constants";
 const PlayerForm = ({ showPlayerForm, setShowPlayerForm, userId, getPlayerData, onEdit, editData }) => {
 
     const [formData, setFormData] = useState({
-        // sNo: '', 
-        // playId: '', 
-        name: '', 
+       
+        first_name: '', 
         email: '', 
-        aadhar: '', 
-        mobileNo: 0
-
+        mobileNo: 0,
+        // player_image, 
+        mobile: ''
         // userId:userId,
     })
 
@@ -74,17 +73,17 @@ const PlayerForm = ({ showPlayerForm, setShowPlayerForm, userId, getPlayerData, 
             <p>Player form</p>
             <Modal 
                 width={800}
-                title='create Players' 
+                title='Update Players' 
                 visible={showPlayerForm}
                 onCancel={() => setShowPlayerForm(false)}
                 footer={false}
             >
                 <Form layout="vertical" onFinish={onFinish}>
-                    <Form.Item label='name:' name='name'>
+                    <Form.Item label='name:' name='first_name'>
                         <input 
                             type="text"
-                            name='name'
-                            value={formData.name} 
+                            name='first_name'
+                            value={formData.first_name} 
                             onChange={handleChange}
                         />
                     </Form.Item>
@@ -96,19 +95,19 @@ const PlayerForm = ({ showPlayerForm, setShowPlayerForm, userId, getPlayerData, 
                             onChange={handleChange}
                         />
                     </Form.Item>
-                    <Form.Item label='aadhar:' name='aadhar'>
+                    {/* <Form.Item label='aadhar:' name='aadhar'>
                         <input 
                             type="text"
                             name='aadhar'
                             value={formData.aadhar} 
                             onChange={handleChange}
                         />
-                    </Form.Item>
-                    <Form.Item label='mobileNo:' name='mobileNo'>
+                    </Form.Item> */}
+                    <Form.Item label='mobileNo:' name='mobile'>
                         <input 
                             type="text"
-                            name='mobileNo'
-                            value={formData.mobileNo} 
+                            name='mobile'
+                            value={formData.mobile} 
                             onChange={handleChange}
                         />
                     </Form.Item>
@@ -125,7 +124,6 @@ const PlayerForm = ({ showPlayerForm, setShowPlayerForm, userId, getPlayerData, 
 }
 
 export default PlayerForm
-
 
 
 

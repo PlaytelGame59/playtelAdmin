@@ -47,8 +47,8 @@ const PlayerLeadboard = () => {
         },
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
+            dataIndex: "first_name",
+            key: "first_name",
         },
         // {
         //     title: "Email",
@@ -62,13 +62,13 @@ const PlayerLeadboard = () => {
         // },
         {
             title: "Mobile Number",
-            dataIndex: "mobileNo",
-            key: "mobileNo",
+            dataIndex: "mobile",
+            key: "mobile",
         },
         {
             title: "Winning Amount",
-            dataIndex: "amount",
-            key: "amount",
+            dataIndex: "winning_amount",
+            key: "winning_amount",
         },
         // {
         //     title: 'Action',
@@ -171,6 +171,7 @@ const PlayerLeadboard = () => {
             // Set loading to true when starting to fetch data
             setLoading(true); 
             const data = await getPlayerLeadboardData(currentPage, pageSize);
+            console.log("getPlayerLeadboardData", data)
             if(data) {
                 setplayerLeadboardData(data);
                 setSearchClicked(false);

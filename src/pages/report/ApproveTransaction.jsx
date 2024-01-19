@@ -534,4 +534,3 @@ const ApproveTransaction = () => {
 
 export default ApproveTransaction;
 
-

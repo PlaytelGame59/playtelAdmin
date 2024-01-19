@@ -29,6 +29,7 @@ import PlayerCreate from "../pages/player/PlayerCreate"
 import PlayerListPage from "../pages/player/PlayerListPage"
 import Header from "../components/Header"
 import SignOut from "../pages/Signout"
+// import GameHistory from "../pages/report/GameHistory"
 
 
 const AllRoutes = () => {
@@ -98,7 +99,7 @@ const AllRoutes = () => {
                 <Route path="/players/list" element= { <PlayerList /> } />
                 <Route path="/player/active" element={ <ActivePlayer /> } />
                 <Route path="/player/leadboard" element={ <PlayerLeadboard /> } />
-                <Route path="/player/create" element={ <PlayerCreate /> } />
+                {/* <Route path="/player/create" element={ <PlayerCreate /> } /> */}
 
                 <Route path="/players/listpage" element= { <PlayerListPage /> } />
 
@@ -121,6 +122,7 @@ const AllRoutes = () => {
                 <Route path="/report/bannedPlayers" element={ <BannedPlayers /> } />
                 <Route path="/report/players" element={ <PlayerReport /> } />
                 <Route path="/report/rejectedwithdraw" element={ <RejectTransaction /> } />
+                {/* <Route path="/report/gamehistory" element= { <GameHistory /> } /> */}
 
                 {/* Privacy Policy */}
                 <Route path="/disclaimer" element={ < PrivacyPolicy /> } />

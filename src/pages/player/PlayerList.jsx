@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import PlayerForm from "../../components/PlayerForm";
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MessageOutlined } from "@ant-design/icons"
+import { CloseCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MessageOutlined } from "@ant-design/icons"
 import { getPlayerData } from "../../api/Api";
 import { banned_player_status, base_url, delete_player } from "../../api/Constants";
 
@@ -57,8 +57,8 @@ const PlayerList = () => {
         },
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
+            dataIndex: "first_name",
+            key: "first_name",
         
         },
         {
@@ -78,8 +78,8 @@ const PlayerList = () => {
 
         {
             title: "Mobile Number",
-            dataIndex: "mobileNo",
-            key: "mobileNo",
+            dataIndex: "mobile",
+            key: "mobile",
         },
         {
             title: 'Action',
@@ -100,18 +100,25 @@ const PlayerList = () => {
                         style={{ color: '#f4a805', cursor: 'pointer' }}
                     />
 
-                    <Button 
+                    <div
                         onClick={() => handleUpdateStatus(record._id, 'banned')}
-                        // className={getButtonClass(record.isBanned)}
-                        style={{ backgroundColor:  record.isBanned ? 'red' : '#f4a805', color: "white" }}
+                        style={{
+                            backgroundColor: record.is_banned ? 'red' : '#f4a805',
+                            color: 'white',
+                            padding: '8px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                        }}
                     >
-                        Banned
-                    </Button>
-                
+                        <CloseCircleOutlined />
+                    </div>
+                                    
                 </Space>
             ),
         },
     ]
+
+    console.log("buttonColor", buttonColor)
 
     // Inside Players List component
     const handleUpdateStatus = async (playerId, status) => {
@@ -119,22 +126,21 @@ const PlayerList = () => {
             console.log('Updating player status:', playerId, status);
             
             // Convert status to boolean
-            const isBanned = status === 'banned';
+            const is_banned = status === 'banned';
             
             // Send a request to update the player status
             const response = await axios.post(`${base_url}${banned_player_status}`, {
                 playerId,
-                isBanned,
+                is_banned,
             });
     
             console.log('Response from server:', response.data);
     
-            if (response.data.isBanned !== undefined) {
+            if(response.data.is_banned !== undefined) {
                 message.success('Player status updated successfully');
                 setButtonColor((prevColor) => !prevColor);
                 
-                // Navigate to Banned Players page
-                // navigate('/report/bannedPlayers');
+                
             } else {
                 // Log the error message from the server
                 console.error('Failed to update player status:', response.data.error);
@@ -584,6 +590,7 @@ const PlayerList = () => {
                                 />
                             )
                         }
+
                     </Layout>
                 </Layout>
             </Layout>
@@ -592,7 +599,6 @@ const PlayerList = () => {
 }
 
 export default PlayerList;
-
 
 
 

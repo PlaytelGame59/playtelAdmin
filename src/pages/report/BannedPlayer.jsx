@@ -53,9 +53,8 @@ const BannedPlayers = () => {
         
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
-            // ...getColumnSearchProps("name")
+            dataIndex: "first_name",
+            key: "first_name",
         },
         {
             title: "Refer Code",
@@ -65,9 +64,9 @@ const BannedPlayers = () => {
         },
         {
             title: "Join Code",
-            dataIndex: "joinCode",
-            key: "joinCode",
-            // ...getColumnSearchProps("joinCode")
+            dataIndex: "join_code",
+            key: "join_code",
+            // ...getColumnSearchProps("join_code")
         },
         {
             title: "2 Wins",
@@ -83,9 +82,9 @@ const BannedPlayers = () => {
         },
         {
             title: "Total Win",
-            dataIndex: "totalWin",
-            key: "totalWin",
-            // ...getColumnSearchProps("totalWin")
+            dataIndex: "no_of_total_win",
+            key: "no_of_total_win",
+            // ...getColumnSearchProps("no_of_total_win")
         },
         // {
         //     title: "Aadhar",
@@ -504,13 +503,12 @@ const BannedPlayers = () => {
                                                     Bonus Wallet
                                                     No. Load
                                                     No. withdraw */}
-                                                    <p style={{ margin: 0 }}>Total Lose {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>Withdraw Amount {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>Wallet Balance {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>Bonus Wallet {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>No. Load {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>No. Load {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>No. withdraw {record.totalLose}</p>
+                                                    <p style={{ margin: 0 }}>Total Lose: {record.no_of_loose}</p>
+                                                    <p style={{ margin: 0 }}>Withdraw Amount: {record.totalLose}</p>
+                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.wallet_amount}</p>
+                                                    <p style={{ margin: 0 }}>Bonus Wallet amount: {record.bonus_ammount}</p>
+                                                    <p style={{ margin: 0 }}>No. Load: {record.totalLose}</p>
+                                                    <p style={{ margin: 0 }}>No. withdraw: {record.totalLose}</p>
                                                     {/* Add more expanded row content as needed */}
                                                     Actions <Space size="middle">
                                                         <EditOutlined
@@ -560,5 +558,4 @@ const BannedPlayers = () => {
 }
 
 export default BannedPlayers;
-
 

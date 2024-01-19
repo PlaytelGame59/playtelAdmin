@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import PlayerForm from "../../components/PlayerForm";
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MessageOutlined } from "@ant-design/icons"
-import { getPlayerData } from "../../api/Api";
+import { getPlayerData, getPlayerdetailReport } from "../../api/Api";
 
 import { CSVLink, CSVDownload } from "react-csv";
 
@@ -46,50 +46,43 @@ const PlayerReport = () => {
             dataIndex: "sNo",
             key: "sno",
             render: (text, record, index) => index + 1,
-            // ...getColumnSearchProps("sno")
         },
         
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
-            // ...getColumnSearchProps("name")
+            dataIndex: "first_name",
+            key: "first_name",
         },
         {
             title: "Refer Code",
             dataIndex: "referCode",
             key: "referCode" ,
-            // ...getColumnSearchProps("referCode")
         },
         {
             title: "Participate",
-            dataIndex: "participate",
-            key: "participate",
-            // ...getColumnSearchProps("participate")
+            dataIndex: "noPlayers",
+            key: "noPlayers",
         },
         {
             title: "Join Code",
-            dataIndex: "joinCode",
-            key: "joinCode",
-            // ...getColumnSearchProps("joinCode")
+            dataIndex: "join_code",
+            key: "join_code",
         },
         {
             title: "2 Wins",
-            dataIndex: "2wins",
-            key: "2wins",
-            // ...getColumnSearchProps("2wins")
+            dataIndex: "winnerCount",
+            key: "winnerCount",
         },
         {
             title: "4 Wins",
-            dataIndex: "4wins",
-            key: "4wins",
-            // ...getColumnSearchProps("4wins")
+            dataIndex: "winnerCount",
+            key: "winnerCount",
+            // ...getColumnSearchProps("winnerCount")
         },
         {
             title: "Total Win",
-            dataIndex: "totalWin",
-            key: "totalWin",
-            // ...getColumnSearchProps("totalWin")
+            dataIndex: "no_of_total_win",
+            key: "no_of_total_win",
         },
         // {
         //     title: "Aadhar",
@@ -138,7 +131,7 @@ const PlayerReport = () => {
     //     }
     //   };
 
-    const handleExpand = (record) => {
+    const handleExpand = async (record) => {
         // Only allow expanding one row at a time
         setExpandedRowKeys((prevKeys) => {
             if (prevKeys.includes(record._id)) {
@@ -147,6 +140,7 @@ const PlayerReport = () => {
                 return [record._id];
             }
         });
+        await getPlayerdetailReport(record.playerId, record.tournamentId);
     };
 
     // const handleExpand = (record) => {
@@ -415,6 +409,7 @@ const PlayerReport = () => {
         try {
             setLoading(true)
             const data = await getPlayerData(currentPage, pageSize);
+            console.log("playerData", data)
             if(data) {
                 setplayerData(data);
                 setSearchClicked(false);
@@ -554,13 +549,13 @@ const PlayerReport = () => {
                                             expandedRowRender: (record) => (
                                                 <>
                                                     
-                                                    <p style={{ margin: 0 }}>Total Lose {record.totalLose}</p>
-                                                    <p style={{ margin: 0 }}>Loaded Amount {record.loadedAmount}</p>
-                                                    <p style={{ margin: 0 }}>Withdraw Amount {record.withdrawAmount}</p>
-                                                    <p style={{ margin: 0 }}>Wallet Balance {record.walletBalance}</p>
-                                                    <p style={{ margin: 0 }}>Bonus Wallet {record.bonusWallet}</p>
-                                                    <p style={{ margin: 0 }}>No. Load {record.noLoad}</p>
-                                                    <p style={{ margin: 0 }}>No. withdraw {record.noWithdraw}</p>
+                                                    <p style={{ margin: 0 }}>Total Lose:  {record.no_of_loose}</p>
+                                                    <p style={{ margin: 0 }}>Loaded Amount: {record.loadedAmount}</p>
+                                                    <p style={{ margin: 0 }}>Withdraw Amount: {record.withdrawAmount}</p>
+                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.wallet_amount}</p>
+                                                    <p style={{ margin: 0 }}>Bonus Wallet: {record.bonus_ammount}</p>
+                                                    <p style={{ margin: 0 }}>No. Load: {record.noLoad}</p>
+                                                    <p style={{ margin: 0 }}>No. withdraw: {record.noWithdraw}</p>
                                                     {/* Add more expanded row content as needed */}
                                                     Actions <Space size="middle">
                                                                 <EditOutlined
@@ -612,5 +607,4 @@ const PlayerReport = () => {
 }
 
 export default PlayerReport;
-
 

@@ -80,6 +80,9 @@ const Sidebar = () => {
     const handleRejectWithdraw = () => {
         navigate('/report/rejectedwithdraw')
     }
+    const handleGameHistory = () => {
+        navigate('/report/gamehistory')
+    }
 
     // PrivacyPolicy
     const handlePrivacyPolicy = () => {
@@ -101,6 +104,8 @@ const Sidebar = () => {
     const handleContactUser = () => {
         navigate('/user/contact/list')
     }
+
+    
 
     return (
         <>
@@ -161,6 +166,7 @@ const Sidebar = () => {
                         <Menu.Item key="rechargetransactions" onClick={handleRechargeTransaction}>Recharge Transactions</Menu.Item>
                         <Menu.Item key="approvedwithdraw" onClick={handleApproveTransaction}>Approved Withdraw</Menu.Item>
                         <Menu.Item key="rejectedwithdraw" onClick={handleRejectWithdraw}>Rejected Withdraw</Menu.Item>
+                        <Menu.Item key="gamehistory" onClick={handleGameHistory}>Game History</Menu.Item>
                     </SubMenu>
 
                     {/* Other menu items */}
@@ -190,4 +196,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

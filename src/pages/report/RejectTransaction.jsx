@@ -526,4 +526,3 @@ const RejectTransaction = () => {
 }
 
 export default RejectTransaction;
-

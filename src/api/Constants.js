@@ -1,4 +1,4 @@
-export const base_url = "http://localhost:4000"
+export const base_url = "http://localhost:2000"
 
 // export const base_url =`http://43.204.211.129:2000`
 
@@ -10,6 +10,7 @@ export const reset_password = "/admin/reset-password"
 // Player api
 export const add_player_notification = "/admin/players-create"    
 export const get_player = "/admin/players-list" 
+export const get_player_report = "/api/tournament/details"
 export const update_player = "/admin/update-players"
 export const delete_player = "/admin/delete-players-data" // /player/delete-players-data
 
@@ -24,7 +25,7 @@ export const delete_tournament = "/admin/delete-tournaments-data" // /admin/dele
 
 
 // wallet api
-export const get_withdrawList = "/admin/withdraw/request"  // withdraw/request
+export const get_withdrawList = "/admin/get-withdrawlist"  // /get-withdrawList
 export const add_wallet = "/admin/add-wallet" // add_wallet
 export const delete_wallet = "" //    
 
@@ -50,3 +51,5 @@ export const add_notice = "/notice/notices-create"
 export const get_notice = "/notice/notices-list"
 export const update_notice = "/notice/update-notices" // /notice/update-notices
 export const delete_notice = "/notice/delete-notices-data" // /notice/delete-notices-data
+
+export const gameHistory = ""
