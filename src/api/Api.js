@@ -1,5 +1,5 @@
 import axios from "axios";
-import { add_desclamer, add_notice, add_notification, add_player_notification, add_tournament, add_wallet, base_url, delete_player, get_notice, get_notificationList, get_player, get_player_active, get_player_leaderboard, get_rechargetransaction, get_tournament, get_transaction, get_withdrawList, update_player, get_banned_player, get_approve_withdraw, get_reject_withdraw, get_player_report } from "./Constants";
+import { add_desclamer, add_notice, add_notification, add_player_notification, add_tournament, add_wallet, base_url, delete_player, get_notice, get_notificationList, get_player, get_player_active, get_player_leaderboard, get_rechargetransaction, get_tournament, get_transaction, get_withdrawList, update_player, get_banned_player, get_approve_withdraw, get_reject_withdraw, get_player_report, getKYCRequest } from "./Constants";
 import { message } from "antd";
 
 
@@ -33,20 +33,18 @@ export const getPlayerData = async (page, pageSize) => {
 };
 
 // /tournament/details
-export const getPlayerdetailReport = async (playerId, tournamentId, page, pageSize) => {
+export const getPlayerdetailReport = async (page, pageSize) => {
   try {
     const response = await axios.get(`${base_url}${get_player_report}`, {
       params: {
-        player_id: playerId,
-        tournament_id: tournamentId,
         page,
         pageSize,
       },
-    });
-    return response.data.player;
+    })
+    return response.data.playerReports
+  
   } catch (error) {
-    console.log(error);
-    return null;
+    console.log(error)
   }
 }
 
@@ -306,3 +304,48 @@ export const gameHistory = async () => {
     return null;
   }
 }
+
+// get_adharKYCRequest
+export const getKYCRequestData = async (page, pageSize) => {
+  try {
+    const response = await axios.get(`${base_url}${getKYCRequest}`, {
+      params: {
+        page,
+        pageSize,
+      },
+    });
+    return response.data.combinedData ;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+
+// update_withdraw_request
+
+
+// const handleAadharApproval = async (record) => {
+//   try {
+//     // Make an API call to update Aadhar approval status
+//     await axios.post(`/approve/aadhar/${record._id}`);
+//     mainPlayerData(); // Refresh the player data after approval
+//   } catch (error) {
+//     console.error(error);
+//     message.error('Failed to approve Aadhar');
+//   }
+// };
+
+// const handlePanApproval = async (record) => {
+//   try {
+//     // Make an API call to update PAN approval status
+//     await axios.post(`/approve/pan/${record._id}`);
+//     mainPlayerData(); // Refresh the player data after approval
+//   } catch (error) {
+//     console.error(error);
+//     message.error('Failed to approve PAN');
+//   }
+// };
+
+
+

@@ -83,34 +83,32 @@ const TournamentList = () => {
     };
 
     const handleDelete = (record) => {
-    // console.log('Delete:', record);
-        Modal.confirm({
-            title: 'Confirm Deletion',
-            icon: <ExclamationCircleOutlined />,
-            content: `Are you sure you want to delete Tournaments data ${record.tournamentName} ${record.noPlayers} ?`,
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk: async () => {
-                try {
-                    // const token = localStorage.getItem('token');
-                    // const response = await axios.post(`http://localhost:2000/admin/delete-tournaments-data`, {
-                    const response = await axios.post(`${base_url}${delete_tournament}`, {
-                        tournamentId: record._id,
-                    });
-                    console.log('Response from backend:', response.data);
-                    if(response.data.status === "success") {
-                        message.success('tournaments data deleted successfully');
-                        mainTournamentData(); // Refresh the tournaments data after deletion
-                    } else {
-                        message.error('Failed to delete tournaments data');
+        console.log('Delete:', record);
+            Modal.confirm({
+                title: 'Confirm Deletion',
+                icon: <ExclamationCircleOutlined />,
+                content: `Are you sure you want to delete Tournaments data ${record.tournamentName} ${record.noPlayers} ?`,
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: async () => {
+                    try {
+                        const response = await axios.post(`${base_url}${delete_tournament}`, {
+                            tournamentId: record.id,
+                        });
+                        console.log('Response from backend:', response.data);
+                        if (response.data.status === "success") {
+                            message.success('tournaments data deleted successfully');
+                            mainTournamentData(); // Refresh the tournaments data after deletion
+                        } else {
+                            message.error('Failed to delete tournaments data');
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        message.error('An error occurred while deleting the tournaments data');
                     }
-                } catch (error) {
-                    console.error(error);
-                    message.error('An error occurred while deleting the tournaments data');
-                }
-            },
-        });
+                },
+            });
     };
 
     const filterData = () => {

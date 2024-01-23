@@ -50,39 +50,63 @@ const PlayerReport = () => {
         
         {
             title: "Name",
-            dataIndex: "first_name",
-            key: "first_name",
+            dataIndex: "player_id.first_name",
+            key: "player_id.first_name",
+            render: (_, record) => record.player_id && record.player_id.first_name,
         },
-        {
+        {     // no_of_loose bonus_ammount
             title: "Refer Code",
             dataIndex: "referCode",
             key: "referCode" ,
         },
         {
             title: "Participate",
-            dataIndex: "noPlayers",
-            key: "noPlayers",
+            dataIndex: "players_count",
+            key: "players_count",  
         },
         {
             title: "Join Code",
-            dataIndex: "join_code",
-            key: "join_code",
+            dataIndex: "player_id.join_code", 
+            key: "player_id.join_code",
+            render: (_, record) => record.player_id && record.player_id.join_code,
         },
+        // {
+        //     title: "2 Wins",
+        //     dataIndex: "tournament_id.winnerCount",
+        //     key: "tournament_id.winnerCount",
+        //     render: (_, record) => {
+        //         const winnerCount = record.tournament_id && record.tournament_id.winnerCount;
+        //         return winnerCount === 1 ? "2 Wins" : null; // Render "2 Wins" only when winnerCount is 1
+        //     },
+        //     // render: (_, record) => record.tournament_id && record.tournament_id.winnerCount,
+        // },
         {
             title: "2 Wins",
-            dataIndex: "winnerCount",
-            key: "winnerCount",
+            dataIndex: "tournament_id.winnerCount",
+            key: "tournament_id.winnerCount",
+            // render: (_, record) => {
+            //     const winnerCount = record.tournament_id && record.tournament_id.winnerCount;
+            //     console.log("Winner Count:", winnerCount);
+            //     return winnerCount === 1 ? "2 Wins" : null;
+            // },
+            render: (_, record) => record.tournament_id && record.tournament_id.winnerCount,
         },
+        
         {
             title: "4 Wins",
-            dataIndex: "winnerCount",
-            key: "winnerCount",
-            // ...getColumnSearchProps("winnerCount")
+            dataIndex: "tournament_id.winnerCount",
+            key: "tournament_id.winnerCount",
+            // render: (_, record) => {
+            //     const winnerCount = record.tournament_id && record.tournament_id.winnerCount;
+            //     return winnerCount === 3 ? "4 Wins" : null; // Render "4 Wins" only when winnerCount is 3
+            // },
+            render: (_, record) => record.tournament_id && record.tournament_id.winnerCount,
         },
         {
             title: "Total Win",
-            dataIndex: "no_of_total_win",
-            key: "no_of_total_win",
+            dataIndex: "player_id.no_of_total_win",  // player_id.no_of_total_win
+            key: "player_id.no_of_total_win",
+            render: (_, record) => record.player_id && record.player_id.no_of_total_win,
         },
         // {
         //     title: "Aadhar",
@@ -245,91 +269,6 @@ const PlayerReport = () => {
     //     });
     //     pdf.save('table.pdf');
     // }
-    
-    // const downloadPdf = () => {
-    //     const pdf = new jsPDF();
-    
-    //     // Add serial numbers to each row in the data
-    //     const data = playerData.map((item, index) => ({
-    //         sNo: index + 1,
-    //         ...item,
-    //     }));
-    
-    //     // Define the columns for the table
-    //     const pdfColumns = columns.map(column => column.title);
-    
-    //     // Map data to a format suitable for autoTable
-    //     const pdfData = data.map(item => columns.map(column => {
-    //         // // Check if the column contains an image
-    //         // if(column.dataIndex === 'aadhar') {
-    //         //     return {
-    //         //         content: {
-    //         //             image: item.aadhar, // Assuming 'aadhar' contains the base64-encoded image
-    //         //             width: 10, // Adjust the width as needed
-    //         //         },
-    //         //     };
-    //         // } else {
-    //         //     return item[column.dataIndex];
-    //         // }
-    //     }));
-    
-    //     // Configure autoTable options
-    //     const options = {
-    //         startY: 10, // Adjust the starting Y position as needed
-    //     };
-    
-    //     pdf.autoTable(pdfColumns, pdfData, options);
-    
-    //     // Save the PDF
-    //     pdf.save('table.pdf');
-    // };
-
-    // const downloadPdf = () => {
-    //     const pdf = new jsPDF();
-    
-    //     const data = playerData.map((item, index) => ({
-    //         sNo: index + 1,
-    //         ...item,
-    //     }));
-    
-    //     const pdfColumns = columns.map(column => column.title);
-    
-    //     const options = {
-    //         startY: 10,
-    //     };
-    
-    //     data.forEach((item, rowIndex) => {
-    //         if (rowIndex > 0) {
-    //             pdf.addPage();
-    //         }
-    
-    //         const tableData = [columns.map(column => item[column.dataIndex])];
-    //         pdf.autoTable({
-    //             head: [pdfColumns],
-    //             body: tableData,
-    //             startY: pdf.lastAutoTable.finalY + 5,
-    //         });
-    
-    //         if (expandedRowKeys.includes(item._id)) {
-    //             const expandedContent = [
-    //                 [`Total Lose: ${item.totalLose}`],
-    //                 [`Loaded Amount: ${item.loadedAmount}`],
-    //                 [`Withdraw Amount: ${item.withdrawAmount}`],
-    //                 [`Wallet Balance: ${item.walletBalance}`],
-    //                 [`Bonus Wallet: ${item.bonusWallet}`],
-    //                 [`No. Load: ${item.noLoad}`],
-    //                 [`No. withdraw: ${item.noWithdraw}`],
-    //             ];
-    
-    //             expandedContent.forEach((content, index) => {
-    //                 pdf.text(content, 10, pdf.lastAutoTable.finalY + (index + 1) * 10);
-    //             });
-    //         }
-    //     });
-    
-    //     pdf.save('table.pdf');
-    // };
-    
 
     const downloadPdf = () => {
         const pdf = new jsPDF();
@@ -383,7 +322,6 @@ const PlayerReport = () => {
         pdf.save('table.pdf');
     };
 
-
     const handlePageSizeChange = (value) => {
         console.log('Selected PageSize:', value);
         setPageSize(value);
@@ -408,7 +346,7 @@ const PlayerReport = () => {
     const mainPlayerData = async () => {
         try {
             setLoading(true)
-            const data = await getPlayerData(currentPage, pageSize);
+            const data = await getPlayerdetailReport(currentPage, pageSize);
             console.log("playerData", data)
             if(data) {
                 setplayerData(data);
@@ -548,12 +486,11 @@ const PlayerReport = () => {
                                         expandable={{
                                             expandedRowRender: (record) => (
                                                 <>
-                                                    
-                                                    <p style={{ margin: 0 }}>Total Lose:  {record.no_of_loose}</p>
+                                                    <p style={{ margin: 0 }}>Total Lose:  {record.player_id.no_of_loose}</p>
                                                     <p style={{ margin: 0 }}>Loaded Amount: {record.loadedAmount}</p>
-                                                    <p style={{ margin: 0 }}>Withdraw Amount: {record.withdrawAmount}</p>
-                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.wallet_amount}</p>
-                                                    <p style={{ margin: 0 }}>Bonus Wallet: {record.bonus_ammount}</p>
+                                                    <p style={{ margin: 0 }}>Withdraw Amount: {record.amt_withdraw}</p>
+                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.player_id.wallet_amount}</p>
+                                                    <p style={{ margin: 0 }}>Bonus Wallet: {record.bonus_amount}</p>
                                                     <p style={{ margin: 0 }}>No. Load: {record.noLoad}</p>
                                                     <p style={{ margin: 0 }}>No. withdraw: {record.noWithdraw}</p>
                                                     {/* Add more expanded row content as needed */}
@@ -570,6 +507,8 @@ const PlayerReport = () => {
                                                                     onClick={() => handleNotification(record)}
                                                                     style={{ color: "#f4a805", cursor: "pointer" }}
                                                                 />
+                                                                {/* <Button>Aadhar approve</Button>
+                                                                <Button>pan approve</Button> */}
                                                             </Space>
                                                 </>
                                             ),

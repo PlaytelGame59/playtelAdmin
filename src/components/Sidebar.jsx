@@ -33,9 +33,9 @@ const Sidebar = () => {
     const handleAPlayerLeadboard = () => {
         navigate('/player/leadboard')
     }
-    const handlePlayerCreate = () => {
-        navigate('/player/create')
-    }
+    // const handlePlayerCreate = () => {
+    //     navigate('/player/create')
+    // }
 
     // Touranament
     const handleTournamentList = () => {
@@ -80,9 +80,9 @@ const Sidebar = () => {
     const handleRejectWithdraw = () => {
         navigate('/report/rejectedwithdraw')
     }
-    const handleGameHistory = () => {
-        navigate('/report/gamehistory')
-    }
+    // const handleGameHistory = () => {
+    //     navigate('/report/gamehistory')
+    // }
 
     // PrivacyPolicy
     const handlePrivacyPolicy = () => {
@@ -103,6 +103,10 @@ const Sidebar = () => {
     }
     const handleContactUser = () => {
         navigate('/user/contact/list')
+    }
+
+    const handleadharpanapprove = () => {
+        navigate('/report/adharpanapprove')
     }
 
     
@@ -137,7 +141,7 @@ const Sidebar = () => {
                         <Menu.Item key="playerlist" onClick={handlePlayerList}>Player List</Menu.Item>
                         <Menu.Item key="activeplayer" onClick={handleActivePlayer}>Active Player</Menu.Item>
                         <Menu.Item key="playerleaderboard" onClick={handleAPlayerLeadboard}>Player Leaderboard</Menu.Item>
-                        <Menu.Item key="playerleaderboard" onClick={handlePlayerCreate}>Player Create</Menu.Item>
+                        
                     </SubMenu>
 
                     {/* Touranament */}
@@ -166,7 +170,7 @@ const Sidebar = () => {
                         <Menu.Item key="rechargetransactions" onClick={handleRechargeTransaction}>Recharge Transactions</Menu.Item>
                         <Menu.Item key="approvedwithdraw" onClick={handleApproveTransaction}>Approved Withdraw</Menu.Item>
                         <Menu.Item key="rejectedwithdraw" onClick={handleRejectWithdraw}>Rejected Withdraw</Menu.Item>
-                        <Menu.Item key="gamehistory" onClick={handleGameHistory}>Game History</Menu.Item>
+                        <Menu.Item key=" /report/adharpanapprove" onClick={ handleadharpanapprove}> /report/adharpanapprove</Menu.Item>
                     </SubMenu>
 
                     {/* Other menu items */}

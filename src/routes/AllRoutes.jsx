@@ -29,6 +29,7 @@ import PlayerCreate from "../pages/player/PlayerCreate"
 import PlayerListPage from "../pages/player/PlayerListPage"
 import Header from "../components/Header"
 import SignOut from "../pages/Signout"
+import AdharPanApprove from "../pages/report/AdharPanApprove"
 // import GameHistory from "../pages/report/GameHistory"
 
 
@@ -123,6 +124,8 @@ const AllRoutes = () => {
                 <Route path="/report/players" element={ <PlayerReport /> } />
                 <Route path="/report/rejectedwithdraw" element={ <RejectTransaction /> } />
                 {/* <Route path="/report/gamehistory" element= { <GameHistory /> } /> */}
+                <Route path="/report/adharpanapprove" element={ <AdharPanApprove /> } />
+                
 
                 {/* Privacy Policy */}
                 <Route path="/disclaimer" element={ < PrivacyPolicy /> } />

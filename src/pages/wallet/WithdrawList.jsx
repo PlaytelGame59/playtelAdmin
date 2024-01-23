@@ -12,6 +12,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { getWithdrawListData } from "../../api/Api"
+import { base_url, update_withdraw_status } from "../../api/Constants"
 
 
 const WithdrawList = () => {
@@ -35,7 +36,7 @@ const WithdrawList = () => {
             title: "S.No",
             dataIndex: "sNo",
             key: "sno",
-            render: (text, record, index) => index + 1,
+            render: (text, record, index) => ((currentPage - 1) * pageSize) + index + 1,
             // ...getColumnSearchProps("sno")
         },
         {
@@ -100,6 +101,10 @@ const WithdrawList = () => {
                         onClick={() => handleDelete(record)} 
                         style={{ color: '#f4a805', cursor: 'pointer' }}
                     />
+                    <MessageOutlined 
+                        onClick={() => handleApproveDisapprove(record)} 
+                        style={{ color: '#f4a805', cursor: 'pointer' }}
+                    />
                 </Space>
             ),
         },
@@ -122,7 +127,7 @@ const WithdrawList = () => {
             onOk: async () => {
                 try {
                     // const token = localStorage.getItem('token');
-                    const response = await axios.delete(`http://localhost:2000/player/delete-players-data/${record._id}`, {
+                    const response = await axios.delete(`${base_url}/player/delete-players-data/${record._id}`, {
                         // headers: {
                         //     Authorization: `Bearer ${token}`,
                         // },
@@ -141,6 +146,42 @@ const WithdrawList = () => {
             },
         });
     };
+
+    const handleApproveDisapprove = (record) => {
+        Modal.confirm({
+            title: 'Confirm Approve',
+            icon: <ExclamationCircleOutlined />,
+            content: `Are you sure you want to approve withdraw request amount for player ${record.player_id.first_name} with requested amount ${record.amt_withdraw} ?`,
+            okText: 'Approve',
+            okType: 'danger',
+            cancelText: 'Reject',
+            onOk: async () => {
+                try {
+                    // Adjust the payload to match the server-side API
+                    const response = await axios.post(`${base_url}${update_withdraw_status}`, {
+                        player_id: record.player_id, // Pass the player_id
+                        new_status: true, // Adjust this based on your backend logic
+                    });
+    
+                    console.log("playerId", record.player_id);
+                    console.log('Response from server:', response.data);
+    
+                    if (response.data.success) {
+                        message.success('Withdraw status updated successfully');
+                        // You may choose to update your local state or trigger a data refresh here.
+                    } else {
+                        console.error('Failed to update Withdraw status:', response.data.error);
+                        message.error('Failed to update Withdraw status. Check the console for details.');
+                    }
+                } catch (error) {
+                    console.error('Error updating Withdraw status:', error);
+                    console.log('Full Axios Error:', error);
+                    message.error('An error occurred while updating Withdraw status');
+                }
+            },
+        });
+    };
+    
     
     const copyWithClipboard = () => {
         const tableData = withdrawListData.map((record) => ({
@@ -359,6 +400,7 @@ const WithdrawList = () => {
                                 </Spin>
                             </Col>
                         </Row>
+                        
                     </Layout>
                 </Layout>
             </Layout>        

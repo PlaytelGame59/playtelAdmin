@@ -10,7 +10,7 @@ export const reset_password = "/admin/reset-password"
 // Player api
 export const add_player_notification = "/admin/players-create"    
 export const get_player = "/admin/players-list" 
-export const get_player_report = "/api/tournament/details"
+export const get_player_report = "/admin/players-report"
 export const update_player = "/admin/update-players"
 export const delete_player = "/admin/delete-players-data" // /player/delete-players-data
 
@@ -26,6 +26,9 @@ export const delete_tournament = "/admin/delete-tournaments-data" // /admin/dele
 
 // wallet api
 export const get_withdrawList = "/admin/get-withdrawlist"  // /get-withdrawList
+export const update_withdraw_status = "/admin/update-withdraw-status"// 
+
+
 export const add_wallet = "/admin/add-wallet" // add_wallet
 export const delete_wallet = "" //    
 
@@ -34,8 +37,12 @@ export const delete_wallet = "" //
 export const get_transaction = "/admin/transaction-list"  // /player/transaction-list
 export const get_rechargetransaction = "/admin/transaction-list"
 
+export const getKYCRequest = "/admin/getKYCRequest"
+
 export const get_banned_player = "/admin/banned-player"   // /banned-player
 export const banned_player_status = "/admin/update-player-status"
+
+
 export const get_approve_withdraw = "/admin/approve-withdraw"
 export const get_reject_withdraw = "/admin/reject-withdraw" // /reject-withdraw
 

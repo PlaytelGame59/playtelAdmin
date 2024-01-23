@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom"
 import { MehOutlined, MailOutlined, DollarOutlined, FolderViewOutlined, LogoutOutlined } from "@ant-design/icons"
 import Sidebar from "../components/Sidebar"
 import axios from "axios"
-import { getPlayerData } from "../api/Api"
-import { base_url, get_player, get_transaction } from "../api/Constants"
+import { getPlayerData, getWithdrawListData } from "../api/Api"
+import { base_url, get_player, get_transaction, get_withdrawList } from "../api/Constants"
 
 const { Sider, Content } = Layout;
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(5)
     // const [currentPageSize, setCurrentPageSize] = useState(10);
-
+    const [withdrawListData, setWithdrawListData] = useState([])  
     const [isAuthenticated, setIsAuthenticated] = useState(
         localStorage.getItem("token") !== null
     );
@@ -31,6 +31,12 @@ const Dashboard = () => {
     const [transactionData, settransactionData] = useState({
         logo: '',  
         text: 'Income',
+        number: 0,
+    });
+
+    const [withdrawData, setwithdrawData] = useState({
+        logo: '',  
+        text: 'Withdraw Request',
         number: 0,
     });
 
@@ -96,7 +102,17 @@ const Dashboard = () => {
         }
     }
 
-    const fetchWithdrawRequest = () => {
+    const fetchWithdrawRequest = async () => {
+        
+        try {
+            const response = await axios.get(`${base_url}${get_withdrawList}`);
+            const withdrawalRequests = response.data.withdrawalRequests; // Assuming the response is an array of players
+    
+            setwithdrawData((prevData) => ({ ...prevData, withdraw: withdrawalRequests }));
+            console.log("withdrawalRequests", withdrawalRequests)
+        } catch (error) {
+            console.error("Error fetching total players list:", error);
+        }
     }
 
     const handleRecentPlayer = async () => {
@@ -257,6 +273,7 @@ const Dashboard = () => {
                                             <MailOutlined style={{ fontSize: '30rem' }} />
                                             <h3>Net Income</h3>
                                             <p>{(transactionData.totalAmount*10)/100}</p>
+                                            
                                         </Card>
                                     </Col>
                                     <Col
@@ -278,8 +295,9 @@ const Dashboard = () => {
                                             className="card"
                                         >
                                             <FolderViewOutlined style={{ fontSize: '30rem' }} />
-                                            <h3>Withdraw Request</h3>
-                                            <p>{(transactionData.totalAmount*1)/100}</p>
+                                        
+                                            <h3>{withdrawData.text}</h3>
+                                            <p>{withdrawData.withdraw ? withdrawData.withdraw.length : 0 }</p>
                                         </Card>
                                     </Col>
                             

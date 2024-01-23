@@ -93,8 +93,8 @@ const TournamentForm = ({ showTournamentForm, setShowTournmentForm, getTournamen
 
     const onFinish = async () => {
         try {
-            if (formData._id) {
-                const dataToSend = { ...formData, tournamentId: formData._id };
+            if (formData.id) {
+                const dataToSend = { ...formData, tournamentId: formData.id };
                 const response = await axios.post(`${base_url}${update_tournament}`, dataToSend);
                 if (response.data.status === "success") {
                     Swal.fire({
