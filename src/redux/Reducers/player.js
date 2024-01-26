@@ -19,7 +19,6 @@ const playerReducer = (state = initialState, action) => {
     default: {
       return state;
     }
-
   }
 };
 

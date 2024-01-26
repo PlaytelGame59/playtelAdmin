@@ -1,6 +1,6 @@
-export const base_url = "http://localhost:2000"
+// export const base_url = "http://localhost:2000"
 
-// export const base_url =`http://43.204.211.129:2000`
+export const base_url =`http://43.204.211.129:2000`
 
 // admin login api
 export const admin_login = "/admin/login" // /admin/login
