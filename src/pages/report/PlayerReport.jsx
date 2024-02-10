@@ -50,20 +50,26 @@ const PlayerReport = () => {
         
         {
             title: "Name",
-            dataIndex: "player_id.first_name",
-            key: "player_id.first_name",
-            render: (_, record) => record.player_id && record.player_id.first_name,
+            dataIndex: "first_name",
+            key: "first_name",
+            // render: (_, record) => record.player_id && record.player_id.first_name,
         },
         {     // no_of_loose bonus_ammount
             title: "Refer Code",
-            dataIndex: "referCode",
-            key: "referCode" ,
+            dataIndex: "referral_code",
+            key: "referral_code" ,
         },
-        {
-            title: "Participate",
-            dataIndex: "players_count",
-            key: "players_count",  
+        // {
+        //     title: "Participate",
+        //     dataIndex: "players_count",
+        //     key: "players_count",  
+        // },
+        {     // no_of_loose bonus_ammount
+            title: "wallet amount",
+            dataIndex: "wallet_amount",
+            key: "wallet_amount" ,
         },
+        
         {
             title: "Join Code",
             dataIndex: "player_id.join_code", 
@@ -486,10 +492,10 @@ const PlayerReport = () => {
                                         expandable={{
                                             expandedRowRender: (record) => (
                                                 <>
-                                                    <p style={{ margin: 0 }}>Total Lose:  {record.player_id.no_of_loose}</p>
+                                                    <p style={{ margin: 0 }}>Total Lose:  {record.player_id?.no_of_loose}</p>
                                                     <p style={{ margin: 0 }}>Loaded Amount: {record.loadedAmount}</p>
                                                     <p style={{ margin: 0 }}>Withdraw Amount: {record.amt_withdraw}</p>
-                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.player_id.wallet_amount}</p>
+                                                    <p style={{ margin: 0 }}>Wallet Balance: {record.player_id?.wallet_amount}</p>
                                                     <p style={{ margin: 0 }}>Bonus Wallet: {record.bonus_amount}</p>
                                                     <p style={{ margin: 0 }}>No. Load: {record.noLoad}</p>
                                                     <p style={{ margin: 0 }}>No. withdraw: {record.noWithdraw}</p>

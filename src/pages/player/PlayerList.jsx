@@ -479,9 +479,9 @@ const PlayerList = () => {
                                 <Row>
                                     <Breadcrumb
                                         items={[
-                                            {
-                                                title: <h3>Players</h3>,
-                                            },
+                                            // {
+                                            //     title: <h3>Players</h3>,
+                                            // },
                                             {
                                                 title: <a href="/">Home</a>,
                                             },
@@ -489,7 +489,7 @@ const PlayerList = () => {
                                                 title: <a href="/players/list">Player</a>,
                                             },
                                             {
-                                                title: <a href="/players/list">List</a>,
+                                                title: <a>List</a>,
                                             },
                                         ]}
                                     />

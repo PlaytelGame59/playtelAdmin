@@ -38,14 +38,14 @@ const AllTransaction = () => {
             title: "S.No",
             dataIndex: "sNo",
             key: "sno",
-            render: (text, record, index) => index + 1,
+            // render: (text, record, index) => index + 1,
             render: (text, record, index) => ((currentPage - 1) * pageSize) + index + 1,
             // ...getColumnSearchProps("sno")
         },
         {
             title: "Player ID",
-            dataIndex: "playerId",
-            key: "playerId" ,
+            dataIndex: "_id",
+            key: "_id" ,
             // ...getColumnSearchProps("playerId")
         },
         {
@@ -203,7 +203,7 @@ const AllTransaction = () => {
                 value?.toString().toLowerCase().includes(searchData)
             )
         );
-    
+        
         setFilteredData(filteredData);
     };
 
@@ -211,6 +211,7 @@ const AllTransaction = () => {
         try {
             setLoading(true)
             const data = await getAllTransactionData(currentPage, pageSize);
+            console.log("data", data)
             if(data) {
                 console.log(data)
                 setallTransactionData(data);

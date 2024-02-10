@@ -46,8 +46,8 @@ const ActivePlayer = () => {
         },
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
+            dataIndex: "first_name",
+            key: "first_name",
         },
         {
             title: "Email",
@@ -56,8 +56,8 @@ const ActivePlayer = () => {
         },
         {
             title: "Mobile Number",
-            dataIndex: "mobileNo",
-            key: "mobileNo",
+            dataIndex: "mobile",
+            key: "mobile",
         },
     ]
 
@@ -134,6 +134,7 @@ const ActivePlayer = () => {
         try {
             setLoading(true)
             const data = await getactivePlayerData(currentPage, pageSize);
+            console.log("getactivePlayerData", data)
             if(data) {
                 setactivePlayerData(data);
                 setSearchClicked(false);

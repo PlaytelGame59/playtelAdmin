@@ -77,7 +77,7 @@ const Dashboard = () => {
     const fetchTotalPlayers = async () => {
         try {
             const response = await axios.get(`${base_url}${get_player}`);
-            const playersList = response.data.player; // Assuming the response is an array of players
+            const playersList = response.data.playerList; // Assuming the response is an array of players
     
             setplayerData((prevData) => ({ ...prevData, players: playersList }));
         } catch (error) {
@@ -86,11 +86,13 @@ const Dashboard = () => {
     
     };
 
-    const fetchIncomeAmount = async () => {
+    const fetchIncomeAmount = async (player_id) => {
         try {
             // const response = await axios.get("http://localhost:2000/player/transaction-list");
-            const response = await axios.get(`${base_url}${get_transaction}`);
-            const transactionList = response.data.transaction; // Assuming the response is an array of transaction
+            const response = await axios.post(`${base_url}${get_transaction}`, {
+                params: { player_id }
+            });
+            const transactionList = response.data.data; // Assuming the response is an array of transaction
     
             // Calculate total amount
             const totalAmount = transactionList.reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -106,7 +108,7 @@ const Dashboard = () => {
         
         try {
             const response = await axios.get(`${base_url}${get_withdrawList}`);
-            const withdrawalRequests = response.data.withdrawalRequests; // Assuming the response is an array of players
+            const withdrawalRequests = response.data.data; // Assuming the response is an array of players
     
             setwithdrawData((prevData) => ({ ...prevData, withdraw: withdrawalRequests }));
             console.log("withdrawalRequests", withdrawalRequests)

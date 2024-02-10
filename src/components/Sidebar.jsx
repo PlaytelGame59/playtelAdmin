@@ -189,11 +189,9 @@ const Sidebar = () => {
                         <Menu.Item key="noticecreate" onClick={handleNoticeCreate}>Notice Create</Menu.Item>
                         <Menu.Item key="noticeuser" onClick={handleContactUser}>Contact Users</Menu.Item>
                     </SubMenu>
-                    
                 
                 </Menu>
-
-
+                
             </Sider>
         </>
     );

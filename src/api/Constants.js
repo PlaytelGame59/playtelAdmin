@@ -9,24 +9,26 @@ export const reset_password = "/admin/reset-password"
 
 // Player api
 export const add_player_notification = "/admin/players-create"    
-export const get_player = "/admin/players-list" 
-export const get_player_report = "/admin/players-report"
+// export const get_player = "/admin/players-list" 
+export const get_player = "/admin/get-player-list"
+export const get_player_report = "/admin/players-detailed-report"   // players-detailed-report
 export const update_player = "/admin/update-players"
 export const delete_player = "/admin/delete-players-data" // /player/delete-players-data
 
-export const get_player_leaderboard = "/admin/leaderboard" // get_player_leaderboard
-export const get_player_active = "/admin/active"   // get_player_active 
+// export const get_player_leaderboard = "/admin/leaderboard" // get_player_leaderboard
+export const get_player_leaderboard = "/api/get-leaderboard"    
+export const get_player_active = "/admin/active/player"   // get_player_active 
 
 // tournament api
 export const add_tournament = "/admin/add-tournament"  // /admin/add-tournament         
-export const get_tournament = "/admin/tournaments-list"
+export const get_tournament = "/admin/tournaments-list" // /tournament/list
 export const update_tournament = "/admin/update-tournament"  // /admin/update-tournament
 export const delete_tournament = "/admin/delete-tournaments-data" // /admin/delete-tournaments-data
 
 
 // wallet api
-export const get_withdrawList = "/admin/get-withdrawlist"  // /get-withdrawList
-export const update_withdraw_status = "/admin/update-withdraw-status"// 
+export const get_withdrawList = "/admin/get-withdraw-list"   // /admin/get-withdraw-list
+export const update_withdraw_status = "/admin/update-withdraw-status"   // 
 
 
 export const add_wallet = "/admin/add-wallet" // add_wallet
@@ -34,12 +36,12 @@ export const delete_wallet = "" //
 
 // report player module
 // transaction api
-export const get_transaction = "/admin/transaction-list"  // /player/transaction-list
+export const get_transaction = "/admin/get-all-transaction"  // /player/transaction-list
 export const get_rechargetransaction = "/admin/transaction-list"
 
 export const getKYCRequest = "/admin/getKYCRequest"
 
-export const get_banned_player = "/admin/banned-player"   // /banned-player
+export const get_banned_player = "/admin/get-banned-players"   // /admin/get-banned-players
 export const banned_player_status = "/admin/update-player-status"
 
 

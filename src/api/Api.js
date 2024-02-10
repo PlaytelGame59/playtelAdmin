@@ -25,7 +25,7 @@ export const getPlayerData = async (page, pageSize) => {
         pageSize,
       },
     });
-    return response.data.player;
+    return response.data.playerList;
   } catch (error) {
     console.log(error);
     return null;
@@ -41,7 +41,7 @@ export const getPlayerdetailReport = async (page, pageSize) => {
         pageSize,
       },
     })
-    return response.data.playerReports
+    return response.data.detailedReport
   
   } catch (error) {
     console.log(error)
@@ -79,7 +79,7 @@ export const deletePlayerData = async () => {
 export const getPlayerLeadboardData = async () => {
   try {
     const response = await axios.get(`${base_url}${get_player_leaderboard}`, {});
-    return response.data.leaderboard;
+    return response.data.playerHistory;
   } catch (error) {
     console.log(error);
     return null;
@@ -90,7 +90,7 @@ export const getPlayerLeadboardData = async () => {
 export const getactivePlayerData = async () => {
   try {
     const response = await axios.get(`${base_url}${get_player_active}`, {});
-    return response.data.activePlayers;
+    return response.data.players;
   } catch (error) {
     console.log(error);
     return null;
@@ -114,8 +114,8 @@ export const addTournamentData = async (tournamentData) => {
 export const getTournamentData = async () => {
   try {
     const response = await axios.get(`${base_url}${get_tournament}`, {});   
-    console.log('API Response:', response.data); 
-    return response.data.data;
+    // console.log('API Response:', response.data); 
+    return response.data.tournament;
   } catch (error) {
     console.log(error);
     return null;
@@ -149,16 +149,18 @@ export const addWalletAmountData = async (walletData) => {
 // <-------------------> access all transaction api <-------------------------->
 
 // get 
-export const getAllTransactionData = async () => {
-  // debugger;
+export const getAllTransactionData = async (player_id) => {
   try {
-    const response = await axios.get(`${base_url}${get_transaction}`, {}) 
-    // console.log("API Response:", response.data.transaction);
-    return response.data.transaction
+    const response = await axios.post(`${base_url}${get_transaction}`, {
+      params: { player_id }
+    });
+    console.log("ewfwef", response.data)
+    return response.data.data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
+
 
 // get
 export const getRechargeTransactionData = async () => {
@@ -178,7 +180,7 @@ export const getRechargeTransactionData = async () => {
 export const getWithdrawListData = async () => {
   try {
     const response = await axios.get(`${base_url}${get_withdrawList}`) 
-    return response.data.withdrawalRequests
+    return response.data.data
   
   } catch (error) {
     console.log(error)
