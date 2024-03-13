@@ -8,20 +8,6 @@ import { AuthContextProvider } from './context/AuthContext';
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      
-      <ConfigProvider
-        theme={{
-          token: {
-            fontFamily: "Poppins",
-            colorPrimary: "#f48805",
-            colorTextPlaceholder: "#000",
-          },
-        }}
-      >
-        <AllRoutes />
-      </ConfigProvider>
-=======
       <AuthContextProvider>
         <ConfigProvider
           theme={{
@@ -35,7 +21,6 @@ function App() {
           <AllRoutes />
         </ConfigProvider>
       </AuthContextProvider>
->>>>>>> origin/dev
     </div>
   );
 }
