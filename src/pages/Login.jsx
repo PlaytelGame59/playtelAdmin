@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import { base_url, admin_login } from "../api/Constants"
 import ForgotPassword from "../components/ForgotPassword";
+import { useAuthContext } from "../context/AuthContext";
 
 
 const Login = ({ onLogin }) => {    
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const navigate = useNavigate();
+    const { UserLogin } = useAuthContext();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -26,38 +28,39 @@ const Login = ({ onLogin }) => {
     };
 
     const handleLogin = async (formData) => {
-        try {
-            const response = await axios.post(`${base_url}${admin_login}`, {
-            email: formData.email, // Assuming email is the username
-            password: formData.password,
-        });
+        UserLogin(formData)
+        // try {
+        //     const response = await axios.post(`${base_url}${admin_login}`, {
+        //     email: formData.email, // Assuming email is the username
+        //     password: formData.password,
+        // });
     
-            console.log('Login successful:', response.data);
-            const { token, userId } = response.data;
+        //     console.log('Login successful:', response.data);
+        //     const { token, userId } = response.data;
     
-            // Store the token in local storage (you can use session storage as well)
-            localStorage.setItem('token', token);
-            localStorage.setItem('userId', userId);
+        //     // Store the token in local storage (you can use session storage as well)
+        //     localStorage.setItem('token', token);
+        //     localStorage.setItem('userId', userId);
 
-            message.success("Login successful")
-            // Display success message
-            Swal.fire({
-                icon: "success",
-                title: "Success!",
-                text: response.data.msg,
-            });
-            // Update the authentication state
-            onLogin();
-            navigate('/');
-        } catch (error) {
-            console.error('Login failed:', error.response.data);
-            message.error('Invalid credentials!')
-            Swal.fire({
-                icon: "error",
-                title: "Error!",
-                text: "Invalid credentials",
-            });
-        }
+        //     message.success("Login successful")
+        //     // Display success message
+        //     // Swal.fire({
+        //     //     icon: "success",
+        //     //     title: "Success!",
+        //     //     text: response.data.msg,
+        //     // });
+        //     // Update the authentication state
+        //     onLogin();
+        //     navigate('/');
+        // } catch (error) {
+        //     console.error('Login failed:', error.response.data);
+        //     message.error('Invalid credentials!')
+        //     // Swal.fire({
+        //     //     icon: "error",
+        //     //     title: "Error!",
+        //     //     text: "Invalid credentials",
+        //     // });
+        // }
     };
 
     const handleResetPassword = () => {

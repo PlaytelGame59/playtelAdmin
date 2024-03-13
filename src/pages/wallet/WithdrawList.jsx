@@ -278,7 +278,6 @@ const WithdrawList = () => {
     useEffect(() => {
         console.log("Withdraw List Data:", withdrawListData);
     }, [withdrawListData]);
-
     
 
     return (

@@ -222,9 +222,9 @@ const NotificationAllPlayers = () => {
                                             {
                                                 title: <a href="/">Home</a>,
                                             },
-                                            {
-                                                title: <a href="/players/list">Player</a>,
-                                            },
+                                            // {
+                                            //     title: <a href="/players/list">Player</a>,
+                                            // },
                                             {
                                                 title: <a >Send Notification</a>,
                                             },

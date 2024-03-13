@@ -39,23 +39,23 @@ const TournamentList = () => {
         },
         {
             title: "Tournament Name",
-            dataIndex: "tournament_name",
-            key: "tournament_name" ,
+            dataIndex: "tournamentName",
+            key: "tournamentName" ,
         },
         {
             title: "Bet Amount",
-            dataIndex: "bet_amount",
-            key: "bet_amount",
+            dataIndex: "betAmount",
+            key: "betAmount",
         },
         {
             title: "No Players",
-            dataIndex: "no_players",
-            key: "no_players",
+            dataIndex: "noPlayers",
+            key: "noPlayers",
         },
         {
             title: "Tournaments Interval",
-            dataIndex: "tournament_interval",
-            key: "tournament_interval",
+            dataIndex: "tournamentInterval",
+            key: "tournamentInterval",
         },
         {
             title: 'Action',

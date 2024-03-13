@@ -94,3 +94,15 @@ input {
     color: white;
     // Add other styles as needed
 }
+
+/* Sidebar.css */
+.sider-container {
+    overflow-y: auto;
+    height: 200vh; /* Set your desired height */
+  }
+  
+  .menu-container {
+    background: #f4a805; /* Background color for the entire menu */
+    border-right: 0; /* Remove border to avoid double border when wrapped in a Card */
+  }
+  

@@ -49,13 +49,13 @@ const Dashboard = () => {
         },
         {
             title: "Player ID",
-            dataIndex: "playerId",
-            key: "playerId" ,
+            dataIndex: "_id",
+            key: "_id" ,
         },
         {
             title: "Name",
-            dataIndex: "name",
-            key: "name",
+            dataIndex: "first_name",
+            key: "first_name",
         },
         {
             title: "Email",
@@ -64,8 +64,8 @@ const Dashboard = () => {
         },
         {
             title: "Mobile Number",
-            dataIndex: "mobileNo",
-            key: "mobileNo",
+            dataIndex: "mobile",
+            key: "mobile",
         }
     ]
     
@@ -77,7 +77,7 @@ const Dashboard = () => {
     const fetchTotalPlayers = async () => {
         try {
             const response = await axios.get(`${base_url}${get_player}`);
-            const playersList = response.data.player; // Assuming the response is an array of players
+            const playersList = response.data.playerList; // Assuming the response is an array of players
     
             setplayerData((prevData) => ({ ...prevData, players: playersList }));
         } catch (error) {
@@ -86,11 +86,13 @@ const Dashboard = () => {
     
     };
 
-    const fetchIncomeAmount = async () => {
+    const fetchIncomeAmount = async (player_id) => {
         try {
             // const response = await axios.get("http://localhost:2000/player/transaction-list");
-            const response = await axios.get(`${base_url}${get_transaction}`);
-            const transactionList = response.data.transaction; // Assuming the response is an array of transaction
+            const response = await axios.post(`${base_url}${get_transaction}`, {
+                params: { player_id }
+            });
+            const transactionList = response.data.data; // Assuming the response is an array of transaction
     
             // Calculate total amount
             const totalAmount = transactionList.reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -106,7 +108,7 @@ const Dashboard = () => {
         
         try {
             const response = await axios.get(`${base_url}${get_withdrawList}`);
-            const withdrawalRequests = response.data.withdrawalRequests; // Assuming the response is an array of players
+            const withdrawalRequests = response.data.data; // Assuming the response is an array of players
     
             setwithdrawData((prevData) => ({ ...prevData, withdraw: withdrawalRequests }));
             console.log("withdrawalRequests", withdrawalRequests)
@@ -115,32 +117,70 @@ const Dashboard = () => {
         }
     }
 
+    // const handleRecentPlayer = async () => {
+    //     try {
+    //         setLoading(true);
+    
+    //         const currentTime = new Date();
+    //         // const oneHourAgo = new Date(currentTime - 60 * 60 * 1000); // 1 hour ago
+    //         // const tweleveHourAgo = new Date(currentTime - 12 * 60 * 60 * 1000); // 12 hour ago
+    //         const tweleveHourAgo = (new Date(currentTime - 5 * 48 * 60 * 60 * 1000)) // new Date(currentTime - 48 * 60 * 60 * 1000); // 48 hour ago
+    //         const tenDaysAgo = new Date(currentTime - 10 * 24 * 60 * 60 * 1000);
+
+    
+    //         const data = await getPlayerData();
+    //         console.log("data", data)
+    //         if(data) {
+    //             // Filter players created in the last 1 hour or 12 hour
+    //             // const recentPlayers = data.filter(player => new Date(player.created_at) >= oneHourAgo);
+    //             const recentPlayers = data.filter(player => new Date(player.created_at) >= tenDaysAgo);
+    
+    //             setRecentPlayers(recentPlayers);
+    //         }
+    //         // const data = await getPlayerData();
+    //         // console.log('Player Data:', data);
+
+    //         // // ...
+
+    //         // const recentPlayers = data.filter(player => new Date(player.created_at) >= tweleveHourAgo);
+    //         // console.log('Recent Players:', recentPlayers);
+
+    //     } catch (error) {
+    //         console.error(error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+    
+
+    // console.log("recent player", recentPlayers)
+
     const handleRecentPlayer = async () => {
         try {
             setLoading(true);
     
             const currentTime = new Date();
-            // const oneHourAgo = new Date(currentTime - 60 * 60 * 1000); // 1 hour ago
-            const tweleveHourAgo = new Date(currentTime - 12 * 60 * 60 * 1000); // 12 hour ago
+            const tenDaysAgo = new Date(currentTime - 10 * 24 * 60 * 60 * 1000);
     
             const data = await getPlayerData();
+            console.log("data", data);
     
-            if(data) {
-                // Filter players created in the last 1 hour or 12 hour
-                // const recentPlayers = data.filter(player => new Date(player.created_at) >= oneHourAgo);
-                const recentPlayers = data.filter(player => new Date(player.created_at) >= tweleveHourAgo);
+            if (data) {
+                // Filter players created in the last 10 days
+                const recentPlayers = data.filter(player => new Date(player.createdAt) >= tenDaysAgo);
     
                 setRecentPlayers(recentPlayers);
             }
+    
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
     };
-    
 
     console.log("recent player", recentPlayers)
+    
 
     useEffect(() => {
         fetchTotalPlayers();

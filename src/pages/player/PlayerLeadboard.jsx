@@ -40,15 +40,15 @@ const PlayerLeadboard = () => {
         },
         {
             title: "Player ID",
-            dataIndex: "_id",
-            key: "playerId" ,
-            render: (text) => text.toUpperCase(),
+            dataIndex: "player_id",
+            key: "player_id" ,
+            // render: (text) => text.toUpperCase(),
             // render: (text, record, index) => `pt${((currentPage - 1) * pageSize) + index + 1}`,
         },
         {
             title: "Name",
-            dataIndex: "first_name",
-            key: "first_name",
+            dataIndex: "player_name",
+            key: "player_name",
         },
         // {
         //     title: "Email",
@@ -62,13 +62,13 @@ const PlayerLeadboard = () => {
         // },
         {
             title: "Mobile Number",
-            dataIndex: "mobile",
-            key: "mobile",
+            dataIndex: "mobile_no",
+            key: "mobile_no",
         },
         {
             title: "Winning Amount",
-            dataIndex: "winning_amount",
-            key: "winning_amount",
+            dataIndex: "totalAmount",
+            key: "totalAmount",
         },
         // {
         //     title: 'Action',

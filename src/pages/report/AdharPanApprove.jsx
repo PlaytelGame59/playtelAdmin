@@ -15,7 +15,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import PlayerReportForm from "../../components/PlayerReportForm";
-import { base_url, delete_player } from "../../api/Constants";
+import { Image_url, base_url, delete_player } from "../../api/Constants";
 
 const AdharPanApprove = () => {
     // const tableRef = useRef(null);
@@ -84,7 +84,7 @@ const AdharPanApprove = () => {
             dataIndex: "player_id.pan_image",
             key: "player_id.pan_image",
             render: (text, record) => (
-                <img src={text} alt={`player_id.pan_image of ${record.first_name}`} style={{ maxWidth: '50px', maxHeight: '50px' }} />
+                <img src={Image_url + text} alt={`player_id.pan_image of ${record.first_name}`} style={{ maxWidth: '50px', maxHeight: '50px' }} />
             ),
         },
         {
