@@ -8,7 +8,7 @@ import Sidebar from "../../components/Sidebar";
 import PlayerForm from "../../components/PlayerForm";
 import { CloseCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MessageOutlined } from "@ant-design/icons"
 import { getPlayerData } from "../../api/Api";
-import { banned_player_status, base_url, delete_player } from "../../api/Constants";
+import { Image_url, banned_player_status, base_url, delete_player } from "../../api/Constants";
 
 import { CSVLink, CSVDownload } from "react-csv";
 
@@ -71,11 +71,13 @@ const PlayerList = () => {
             title: "player Img",
             dataIndex: "player_image",
             key: "player_image",
-            render: (text, record) => (
-                <img src={text} alt={`player_image of ${record.name}`} style={{ maxWidth: '50px', maxHeight: '50px' }} />
-            ),
+            render: (text, record) => {
+                const imageUrl = Image_url + text;
+                return (
+                    <img src={imageUrl} alt={`player_image of ${imageUrl + record.name}`} style={{ maxWidth: '50px', maxHeight: '50px' }} />
+                );
+            }
         },  
-
         {
             title: "Mobile Number",
             dataIndex: "mobile",

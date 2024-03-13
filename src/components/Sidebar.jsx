@@ -117,17 +117,19 @@ const Sidebar = () => {
                 width={200}
                 style={{
                     overflowY: "auto", // Enable vertical scrolling
-                    height: "100vh", // Set a fixed height or use '100%' based on your layout
+                    height: "200vh !important", // Set a fixed height or use '100%' based on your layout
                 }}
+                // className="sider-container"
             >
                 <Menu
                     mode="vertical"
                     openKeys={openKeys}
                     onOpenChange={(keys) => setOpenKeys(keys)}
-                    style={{
-                        background: "#f4a805", // Background color for the entire menu
-                        borderRight: 0, // Remove border to avoid double border when wrapped in a Card
-                    }}
+                    // style={{
+                    //     background: "#f4a805", // Background color for the entire menu
+                    //     borderRight: 0, // Remove border to avoid double border when wrapped in a Card
+                    // }}
+                    className="menu-container"
                 >
                     
                     {/* Dashboard / Home */}
